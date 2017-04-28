@@ -1,0 +1,19 @@
+# Workaround doxygen 1.8.10 bugs.
+--- libstdc++-v3/doc/doxygen/user.cfg.in
++++ libstdc++-v3/doc/doxygen/user.cfg.in
+@@ -895,7 +895,6 @@ INPUT                  = @srcdir@/doc/doxygen/doxygroups.cc \
+                          include/ext/pb_ds/detail/binary_heap_ \
+                          include/ext/pb_ds/detail/binomial_heap_ \
+                          include/ext/pb_ds/detail/binomial_heap_base_ \
+-                         include/ext/pb_ds/detail/bin_search_tree_ \
+                          include/ext/pb_ds/detail/branch_policy \
+                          include/ext/pb_ds/detail/cc_hash_table_map_ \
+                          include/ext/pb_ds/detail/eq_fn \
+@@ -2135,6 +2122,7 @@ PREDEFINED             = __cplusplus=201103L \
+                          _GLIBCXX_USE_CONSTEXPR=constexpr \
+                          "_GLIBCXX_THROW(E)= " \
+                          _GLIBCXX_NOEXCEPT=noexcept \
++                         "_GLIBCXX_NOEXCEPT_IF(E)=noexcept(E)" \
+                          _GLIBCXX_NOTHROW=noexcept \
+                          _GLIBCXX_USE_NOEXCEPT=noexcept \
+                          _GLIBCXX_USE_WCHAR_T \
