@@ -1,10 +1,10 @@
 %global DATE 20160406
 %global SVNREV 234777
 %global gcc_version 5.3.1
-%global gcc_compat_version 5
+%global gcc_compat_version 53
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %{release}, append them after %{gcc_release} on Release: line.
-%global gcc_release 6
+%global gcc_release 7
 %global _unpackaged_files_terminate_build 0
 %global _performance_build 1
 # Hardening slows the compiler way too much.
@@ -641,7 +641,12 @@ rm -rf %{buildroot}
 %doc rpm.doc/gfortran/*
 
 %changelog
-* Tue Dec 20 2016 Byoungchan Lee <byoungchan.lee@gmx.com> 5.3.1-6
+* Fri Apr 28 2017 Simone Caronni <negativo17@gmail.com> - 5.3.1-7
+- Import package from:
+  https://copr.fedorainfracloud.org/coprs/leebc/compat-gcc-5/
+- Rename to compat-gcc-53.
+
+* Tue Dec 20 2016 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.3.1-6
 - new compat package (Fedora 23's GCC 5 + EL7 compat-gcc-44)
 
 
