@@ -285,8 +285,7 @@ for d in `pwd`/%{gcc_target_platform}/libstdc++-v3 `pwd`/%{gcc_target_platform}/
     rm .libs/libstdc++.so; cp .libs/ll.so .libs/libstdc++.so
     if [ x"$d_first" = xyes ]; then
       rm .libs/libstdc++.so.6
-      libstdcxx_so=`basename %{_prefix}/%{_lib}/libstdc++.so.6.0.*`
-      cp -a %{_prefix}/%{_lib}/$libstdcxx_so .libs/
+      libstdcxx_so=`basename .libs/libstdc++.so.6.0.*`
       cd .libs; ln -sf $libstdcxx_so libstdc++.so.6; cd -
       d_first=no
     fi
@@ -302,8 +301,7 @@ for d in `pwd`/%{gcc_target_platform}/libgomp `pwd`/%{gcc_target_platform}/*/lib
     rm .libs/libgomp.so; cp .libs/ll.so .libs/libgomp.so
     if [ x"$d_first" = xyes ]; then
       rm .libs/libgomp.so.1
-      libgomp_so=`basename %{_prefix}/%{_lib}/libgomp.so.1.0.*`
-      cp -a %{_prefix}/%{_lib}/$libgomp_so .libs/
+      libgomp_so=`basename .libs/libgomp.so.1.0.*`
       cd .libs; ln -sf $libgomp_so libgomp.so.1; cd -
       d_first=no
     fi
@@ -319,8 +317,7 @@ for d in `pwd`/%{gcc_target_platform}/libgfortran `pwd`/%{gcc_target_platform}/*
     rm .libs/libgfortran.so; cp .libs/ll.so .libs/libgfortran.so
     if [ x"$d_first" = xyes ]; then
       rm .libs/libgfortran.so.3
-      libgfortran_so=`basename %{_prefix}/%{_lib}/libgfortran.so.3.0.*`
-      cp -a %{_prefix}/%{_lib}/$libgfortran_so .libs/
+      libgfortran_so=`basename .libs/libgfortran.so.3.0.*`
       cd .libs; ln -sf $libgfortran_so libgfortran.so.3; cd -
       d_first=no
     fi
@@ -645,6 +642,7 @@ rm -rf %{buildroot}
 - Import package from:
   https://copr.fedorainfracloud.org/coprs/leebc/compat-gcc-5/
 - Rename to compat-gcc-53.
+- Don't add system libraries to the package.
 
 * Tue Dec 20 2016 Byoungchan Lee <byoungchan.lee@gmx.com> - 5.3.1-6
 - new compat package (Fedora 23's GCC 5 + EL7 compat-gcc-44)
