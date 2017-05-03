@@ -10,7 +10,6 @@
 # Hardening slows the compiler way too much.
 %undefine _hardened_build
 
-%global attr_ifunc 1
 Summary: Various compilers (C, C++, Objective-C, Java, ...)
 Name: compat-gcc-%{gcc_compat_version}
 Version: %{gcc_version}
@@ -18,14 +17,13 @@ Release: %{gcc_release}%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
-Group: Development/Languages
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
 # svn export svn://gcc.gnu.org/svn/gcc/branches/redhat/gcc-5-branch@%{SVNREV} gcc-%{version}-%{DATE}
 # tar cf - gcc-%{version}-%{DATE} | bzip2 -9 > gcc-%{version}-%{DATE}.tar.bz2
 Source0: gcc-%{version}-%{DATE}.tar.bz2
 Source1: dummylib.sh
-%global isl_version 0.14
+
 URL: http://gcc.gnu.org
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # Need binutils with -pie support >= 2.14.90.0.4-4
@@ -98,7 +96,6 @@ Patch4: gcc5-i386-libgomp.patch
 Patch5: gcc5-sparc-config-detection.patch
 Patch6: gcc5-libgomp-omp_h-multilib.patch
 Patch7: gcc5-libtool-no-rpath.patch
-Patch8: gcc5-isl-dl.patch
 Patch10: gcc5-libstdc++-docs.patch
 Patch11: gcc5-no-add-needed.patch
 Patch12: gcc5-libgo-p224.patch
@@ -117,7 +114,6 @@ You'll need this package in order to compile C code.
 
 %package c++
 Summary: C++ support for GCC
-Group: Development/Languages
 Requires: compat-gcc-%{gcc_compat_version} = %{version}-%{release}
 Requires: libstdc++ >= %{version}-%{release}
 BuildRequires: libstdc++
@@ -139,7 +135,6 @@ including templates and exception handling.
 
 %package gfortran
 Summary: Fortran support
-Group: Development/Languages
 Requires: compat-gcc-%{gcc_compat_version} = %{version}-%{release}
 Requires: libgfortran >= %{version}-%{release}
 BuildRequires: gmp-devel >= 4.1.2-8, mpfr-devel >= 2.2.1
@@ -241,7 +236,6 @@ CC="$CC" CXX="$CXX" CFLAGS="$OPT_FLAGS" \
 	--enable-languages=c,c++,fortran \
 	$CONFIGURE_OPTS
 
-#GCJFLAGS="$OPT_FLAGS" make %{?_smp_mflags} BOOT_CFLAGS="$OPT_FLAGS" bootstrap
 GCJFLAGS="$OPT_FLAGS" make %{?_smp_mflags} BOOT_CFLAGS="$OPT_FLAGS" profiledbootstrap
 
 CC="`%{gcc_target_platform}/libstdc++-v3/scripts/testsuite_flags --build-cc`"
@@ -343,8 +337,6 @@ for d in `pwd`/%{gcc_target_platform}/libgcc `pwd`/%{gcc_target_platform}/*/libg
 done
 
 %install
-rm -fr %{buildroot}
-
 cd obj-%{gcc_target_platform}
 
 TARGET_PLATFORM=%{gcc_target_platform}
@@ -484,7 +476,6 @@ rm -rf testlogs-%{_target_platform}-%{version}-%{release}
 rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
 %{_prefix}/bin/gcc%{gcc_compat_version}
 %{_prefix}/bin/gcov%{gcc_compat_version}
 %{_mandir}/man1/gcc%{gcc_compat_version}.1*
@@ -587,7 +578,6 @@ rm -rf %{buildroot}
 %doc gcc/README* rpm.doc/changelogs/gcc/ChangeLog* gcc/COPYING*
 
 %files c++
-%defattr(-,root,root,-)
 %{_prefix}/bin/g++%{gcc_compat_version}
 %{_mandir}/man1/g++%{gcc_compat_version}.1*
 %dir %{_prefix}/include/c++
@@ -609,7 +599,6 @@ rm -rf %{buildroot}
 %doc rpm.doc/changelogs/libstdc++-v3/ChangeLog* libstdc++-v3/README*
 
 %files gfortran
-%defattr(-,root,root,-)
 %{_prefix}/bin/gfortran%{gcc_compat_version}
 %{_mandir}/man1/gfortran%{gcc_compat_version}.1*
 %{_infodir}/gfortran%{gcc_compat_version}*
